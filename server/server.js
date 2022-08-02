@@ -49,7 +49,7 @@ app.get("/product", async (req,res) => {
         const decode = jwt.verify(token, 'secret278')
         const email = decode.email;
         const user  = await User.findOne({email: email});
-        return res.json({status: 'ok', quote: user.quote})
+        return res.json({status: 'ok', role: user.role})
     } catch (error) {
         console.log(error);
         res.json({status: 'error', error: 'invalid token'})
@@ -62,7 +62,7 @@ app.post("/product", async (req,res) => {
     try {
         const decode = jwt.verify(token, 'secret278')
         const email = decode.email;
-        const user  = await User.findOne({email: email},{$set : {quote: req.body.quote}});
+        const user  = await User.findOne({email: email},{$set : {role: req.body.role}});
         return {status: 'ok'}
     } catch (error) {
         console.log(error);
